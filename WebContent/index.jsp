@@ -2,7 +2,7 @@
 
 
 
-response.sendRedirect("./rest/servicios/estados");
+response.sendRedirect("./rest/servicios/alumno");
 
 
 

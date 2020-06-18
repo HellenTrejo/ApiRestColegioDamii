@@ -1,10 +1,6 @@
 package com.example.rest.servicios;
 
 import javax.ws.rs.Consumes;
-
-import javax.ws.rs.DELETE;
-
-
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -17,32 +13,17 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
-import com.example.rest.dao.CifrasModel;
-import com.example.rest.dao.DepartamentoModel;
-import com.example.rest.dao.EstadoModel;
-
-import com.example.rest.dao.NacionalidadModel;
-import com.example.rest.dao.PersonaModel;
-
-
-
+import com.example.rest.dao.CursoModel;
+import com.example.rest.dao.NotaModel;
 import com.example.rest.dao.RolModel;
-import com.example.rest.dao.TipoDocumentoModel;
+import com.example.rest.dao.UsuarioModel;
+import com.example.rest.dao.UsuarioxCursoModel;
 
-
-
-import om.example.rest.entidades.Cifras;
-
-
-import om.example.rest.entidades.Persona;
+import om.example.rest.entidades.Curso;
+import om.example.rest.entidades.Nota;
 import om.example.rest.entidades.Rol;
-
-import com.example.rest.dao.PreguntaModel;
-import com.example.rest.dao.TriajeModel;
-
-
-import om.example.rest.entidades.Triaje;
+import om.example.rest.entidades.Usuario;
+import om.example.rest.entidades.UsuarioxCurso;
 
 
 //GET,POST,PUT,DELETE métodos del protocolo HTTP
@@ -56,127 +37,133 @@ import om.example.rest.entidades.Triaje;
 public class ServicioRest {
 	private static final Log log = LogFactory.getLog(ServicioRest.class);
 	
-	
-	private PreguntaModel daoPregunta= new PreguntaModel();
-	private TriajeModel daoTriaje= new TriajeModel();
-	
-	
-	private EstadoModel daoEstado = new EstadoModel();
-	private CifrasModel daoCifras = new CifrasModel();
 
-	private NacionalidadModel daoNacionalidad = new NacionalidadModel();
-	private TipoDocumentoModel daoTipoDocu = new TipoDocumentoModel();
 	private RolModel daoRol = new RolModel();
-	private PersonaModel daoPersona = new PersonaModel();
 
-	private DepartamentoModel daoDepa= new DepartamentoModel();
+
+	private UsuarioModel daoUsuario= new UsuarioModel();
+	private CursoModel daoCurso= new CursoModel();
+	private UsuarioxCursoModel daoUsuxCurso= new UsuarioxCursoModel();
+	private NotaModel daoNota = new NotaModel();
 	
-	
-	
-	
+	//
 	@GET
-	@Path("/tipodoc")
+	@Path("/alumnoxCurso")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response listarTipoDocumento() {
-		log.info("listartipodocumento rest ");
-		return Response.ok(daoTipoDocu.listarTipoDocumento()).build();
+	public Response listarusuarioXcurso() {
+		log.info("listarAlumnoXcurso rest ");
+		return Response.ok(daoUsuxCurso.listarAlumnoXCurso()).build();
 	}
-	
-//
-
 	@GET
-	@Path("/estados")
+	@Path("/docentexCurso")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response listarEstados() {
-		log.info("listarEstados rest ");
-		return Response.ok(daoEstado.listarEstados()).build();
+	public Response listardocenteXcurso() {
+		log.info("listardocenteXcurso rest ");
+		return Response.ok(daoUsuxCurso.listarDocenteXCurso()).build();
 	}
-	
-	@GET
-	@Path("/cifras")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response listarCifras() {
-		log.info("listarCifras rest ");
-		return Response.ok(daoCifras.listarCifras()).build();
-	}
-
-	@GET
-	@Path("/cifras/{fecha}/{iddepartamento}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response consultaPorFecha(@PathParam("fecha") String fecha,@PathParam("iddepartamento") int idDepa) {
-		log.info("listarTodos rest ");
-		return Response.ok(daoCifras.consultaCifrasPorFechaYDepa(fecha, idDepa)).build();
-	}
-
-	
-
 	@POST
-	   @Path("/cifras/add")
+	   @Path("/usuarioxCurso/add")
 	   @Consumes({MediaType.APPLICATION_JSON})
 	   @Produces({MediaType.APPLICATION_JSON})
-		public int registrarCifras(Cifras bean) {
-		return daoCifras.insertaCifras(bean);
+		public int registrarusuarioXcurso(UsuarioxCurso bean) {
+		return daoUsuxCurso.insertaUsuarioxCurso(bean);
 	}
 	
 	@PUT
-	   @Path("/cifras/update")
+	   @Path("/usuarioxCurso/update")
 	   @Consumes({MediaType.APPLICATION_JSON})
 	   @Produces({MediaType.APPLICATION_JSON})
-		public int actualizarCifras(Cifras bean) {
-		return daoCifras.actualizaCifras(bean);
-}
-
-	@GET
-	@Path("/preguntas")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response listarPeguntas() {
-		log.info("listarPreguntas rest ");
-		return Response.ok(daoPregunta.listarPreguntas()).build();
+		public int actualizarusuarioXcurso(UsuarioxCurso bean) {
+		return daoUsuxCurso.actualizaUsuarioxCurso(bean);
 	}
 	
 	@GET
-	@Path("/triajes")
+	@Path("/nota")
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response listarTriaje() {
-		log.info("listarTriaje rest ");
-		return Response.ok(daoTriaje.listarTriaje()).build();
+	public Response listarNota() {
+		log.info("listarNota rest ");
+		return Response.ok(daoNota.listarNota()).build();
 	}
 	
 	@POST
-	   @Path("/triaje/add")
+	   @Path("/nota/add")
 	   @Consumes({MediaType.APPLICATION_JSON})
 	   @Produces({MediaType.APPLICATION_JSON})
-	   public int saveTriaje(Triaje data){
-		log.info("saveTriaje rest ");
-		return daoTriaje.insertaTriaje(data);
-	   }
-	
-
-	@PUT
-	   @Path("/triaje{id}")
-	   @Consumes({MediaType.APPLICATION_JSON})
-	   @Produces({MediaType.APPLICATION_JSON})
-	   public Response updateTriaje(@PathParam("id") int id, Triaje data){
-		log.info("updateTriaje rest ");
-		return Response.ok(daoTriaje.actualizaTriaje(data)).build();
-  
-	   }
-
-	@GET
-		@Path("/nacionalidad")
-		@Produces({ MediaType.APPLICATION_JSON })
-		public Response listarNacionalidad() {
-			log.info("listarNacionalidad rest ");
-			return Response.ok(daoNacionalidad.listarNacionalidad()).build();
-		}
-	
-	@GET
-	@Path("/departamento")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response listarDepartamento() {
-		log.info("listarDepartamento rest ");
-		return Response.ok(daoDepa.listarDepartamento()).build();
+		public int registrarNota(Nota bean) {
+		return daoNota.insertaNota(bean);
 	}
+	
+	@PUT
+	   @Path("/nota/update")
+	   @Consumes({MediaType.APPLICATION_JSON})
+	   @Produces({MediaType.APPLICATION_JSON})
+		public int actualizarNota(Nota bean) {
+		return daoNota.actualizaNota(bean);
+	}
+	
+	@GET
+	@Path("/curso")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response listarCurso() {
+		log.info("listarAlumno rest ");
+		return Response.ok(daoCurso.listarCurso()).build();
+	}
+	
+	@POST
+	   @Path("/curso/add")
+	   @Consumes({MediaType.APPLICATION_JSON})
+	   @Produces({MediaType.APPLICATION_JSON})
+		public int registrarCurso(Curso bean) {
+		return daoCurso.insertaCurso(bean);
+	}
+	
+	@PUT
+	   @Path("/curso/update")
+	   @Consumes({MediaType.APPLICATION_JSON})
+	   @Produces({MediaType.APPLICATION_JSON})
+		public int actualizarCurso(Curso bean) {
+		return daoCurso.actualizaCurso(bean);
+	}
+	
+	@GET
+	@Path("/alumno")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response listarAlumno() {
+		log.info("listarAlumno rest ");
+		return Response.ok(daoUsuario.listarAlumno()).build();
+	}
+	@GET
+	@Path("/docente")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response listarDocente() {
+		log.info("listarAlumno rest ");
+		return Response.ok(daoUsuario.listarDocente()).build();
+	}
+	
+	@POST
+	   @Path("/usuario/add")
+	   @Consumes({MediaType.APPLICATION_JSON})
+	   @Produces({MediaType.APPLICATION_JSON})
+		public int registrarUsuario(Usuario bean) {
+		return daoUsuario.insertaUsuario(bean);
+	}
+	
+	@PUT
+	   @Path("/usuario/update")
+	   @Consumes({MediaType.APPLICATION_JSON})
+	   @Produces({MediaType.APPLICATION_JSON})
+		public int actualizarUsuario(Usuario bean) {
+		return daoUsuario.actualizaUsuario(bean);
+	}
+	
+	@GET
+	@Path("/usuario/{dni}/{password}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response ingresoUsuario(@PathParam("dni") String dni,@PathParam("password") String pass) {
+		log.info("ingresoUsuario rest ");
+		return Response.ok(daoUsuario.ingresoUsuario(dni, pass)).build();
+	}
+	
 	
 	@GET
 	@Path("/rol")
@@ -195,49 +182,8 @@ public class ServicioRest {
 		return daoRol.insertaRol(bean);
 	}
 	
-
-	@GET
-	@Path("/persona")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response listarPersona() {
-		log.info("listarPersona rest ");
-		return Response.ok(daoPersona.listarPersona()).build();
-	}
 	
-	@POST
-	   @Path("/persona/add")
-	   @Consumes({MediaType.APPLICATION_JSON})
-	   @Produces({MediaType.APPLICATION_JSON})
-		public int registrarPersona(Persona bean) {
-		System.out.println("aqui bb");
-		return daoPersona.insertaPersona(bean);
-	}
 	
-	@PUT
-	   @Path("/persona/update")
-	   @Consumes({MediaType.APPLICATION_JSON})
-	   @Produces({MediaType.APPLICATION_JSON})
-		public int actualizarPersona(Persona bean) {
-		return daoPersona.actualizaPersona(bean);
-
-	}
-	
-	@GET
-	@Path("/persona/{numDoc}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response ingresoPersona(@PathParam("numDoc") String numDoc) {
-		log.info("listarNumDoc rest ");
-		return Response.ok(daoPersona.ingresoPersona(numDoc)).build();
-	}
-
-	@DELETE
-	   @Path("/cifras/delete")
-	   @Produces({MediaType.APPLICATION_JSON})
-	   public Response removeCifras( Cifras data){
-		log.info("removeCifras rest ");
-		return Response.ok(daoCifras.eliminaCifras(data)).build();
-	   }
-
 	
 	
 
