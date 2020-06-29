@@ -59,7 +59,7 @@ private static final Log log = LogFactory.getLog(CursoModel.class);
 		PreparedStatement pstm = null;
 		int salida = -1;
 		try {
-			String sql = "insert into Curso values(null,?)";
+			String sql = "insert into curso values(null,?)";
 			conn = new ConectaDB().getAcceso();
 			pstm = conn.prepareStatement(sql);
 			

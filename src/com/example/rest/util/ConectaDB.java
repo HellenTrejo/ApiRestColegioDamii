@@ -13,9 +13,8 @@ public class ConectaDB {
         public Connection getAcceso() throws Exception {
         	Class.forName("com.mysql.jdbc.Driver");
         	
-        	//Connection conn = DriverManager.getConnection("jdbc:mysql://node226146-env-6360882.j.layershift.co.uk/proyectocovid","root","ELEmbe26478");
+        	//Connection conn = DriverManager.getConnection("jdbc:mysql://node226524-env-9216254.j.layershift.co.uk/bd_colegio_damii","root","BIXxbb83692");
         	//
-        	//Connection conn = DriverManager.getConnection("jdbc:mysql://node225371-env-4252036.j.layershift.co.uk/proyectocovid","root","OQBeie83118");
         	Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_colegio_damii","root","mysql");
            	
         return conn;
