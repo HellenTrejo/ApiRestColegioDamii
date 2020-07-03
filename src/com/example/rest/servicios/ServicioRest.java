@@ -14,6 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.example.rest.dao.CursoModel;
+import com.example.rest.dao.EvaluacionModel;
 import com.example.rest.dao.NotaModel;
 import com.example.rest.dao.RolModel;
 import com.example.rest.dao.UsuarioModel;
@@ -45,6 +46,7 @@ public class ServicioRest {
 	private CursoModel daoCurso= new CursoModel();
 	private UsuarioxCursoModel daoUsuxCurso= new UsuarioxCursoModel();
 	private NotaModel daoNota = new NotaModel();
+	private EvaluacionModel daoEvalua= new EvaluacionModel();
 	
 	//
 	@GET
@@ -171,6 +173,14 @@ public class ServicioRest {
 	public Response listarRol() {
 		log.info("listarRol rest ");
 		return Response.ok(daoRol.listaRol()).build();
+	}
+	
+	@GET
+	@Path("/evaluacion")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response listarEvaluacion() {
+		log.info("listarEvaluacion rest ");
+		return Response.ok(daoEvalua.listaEvaluacion()).build();
 	}
 	
 	@POST
