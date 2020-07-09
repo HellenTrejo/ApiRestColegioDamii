@@ -173,6 +173,50 @@ private static final Log log = LogFactory.getLog(UsuarioxCursoModel.class);
 		return salida;
 	}
 	
+	public List<UsuarioxCurso> consultaUsuarioDeUnCurso(int idcurso) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		List<UsuarioxCurso> lista = new ArrayList<UsuarioxCurso>();
+		try {
+			String sql = "select uc.idusuarioxcurso, u.idusuario, u.nombre, u.apellido, u.dni, u.correo, c.idcurso,c.descripcion  from  usuarioxcurso uc inner join usuario u on uc.idusuario = u.idusuario inner join curso c on uc.idcurso = c.idcurso where u.idrol=2 and c.idcurso = ?";
+			conn = new ConectaDB().getAcceso();
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, idcurso);
+			
+			log.info(pstm);
+			rs = pstm.executeQuery();
+			UsuarioxCurso bean = null;
+			while(rs.next()){
+				bean = new UsuarioxCurso();
+				bean.setIdUsuarioxcurso(rs.getInt(1));
+				Usuario obj1= new Usuario();
+				obj1.setIdUsuario(rs.getInt(2));
+				obj1.setNombre(rs.getString(3));
+				obj1.setApellido(rs.getString(4));
+				obj1.setDni(rs.getString(5));
+				obj1.setCorreo(rs.getString(6));
+				bean.setUsuario(obj1);
+				Curso obj2= new Curso();
+				obj2.setIdCurso(rs.getInt(7));
+				obj2.setDescripcion(rs.getString(8));
+				bean.setCurso(obj2);
+				lista.add(bean);
+				
+			}
+		} catch (Exception e) {
+			log.info(e);
+		} finally {
+			try {
+				if (rs != null)rs.close();
+				if (pstm != null)pstm.close();
+				if (conn != null)conn.close();
+			} catch (SQLException e) {}
+		}
+		return lista;
+	}
+	
 
 
 }

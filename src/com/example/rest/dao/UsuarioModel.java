@@ -210,6 +210,8 @@ private static final Log log = LogFactory.getLog(UsuarioModel.class);
 		return lista;
 	}
 	
+	
+	
 
 
 }

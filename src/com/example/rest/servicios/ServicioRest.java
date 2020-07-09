@@ -166,6 +166,13 @@ public class ServicioRest {
 		return Response.ok(daoUsuario.ingresoUsuario(dni, pass)).build();
 	}
 	
+	@GET
+	@Path("/usuarioCurso/{idcurso}")
+	@Produces({MediaType.APPLICATION_JSON})
+	public Response consultaUsuarioDeUnCurso(@PathParam("idcurso") int idCurso) {
+		log.info("consultaUsuarioDeUnCurso rest ");
+		return Response.ok(daoUsuxCurso.consultaUsuarioDeUnCurso(idCurso)).build();
+	}
 	
 	@GET
 	@Path("/rol")
